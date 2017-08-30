@@ -4,14 +4,30 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "webpack": "node ./node_modules/webpack/bin/webpack.js --config webpack.config.js --watch",
     "dev-server": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config webpack.config.js"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(tsx?|jsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json",
+      "jsx"
+    ]
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^20.0.8",
+    "jest": "^20.0.4",
     "style-loader": "^0.18.2",
+    "ts-jest": "^20.0.11",
     "typescript": "^2.4.2",
     "webpack-dev-server": "^2.7.1"
   },
