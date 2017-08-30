@@ -1,0 +1,9 @@
+.ababab {
+    color: blue;
+    padding: 20px;
+}
+
+.test {
+    composes: ababab;
+    color: blue;
+}
