@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
     watch: true,
     entry: {
-        app: "./src/index.tsx"
+        app: "./src/Index.tsx"
     },
     output: {
         path: path.resolve(__dirname, "dist"),
@@ -33,14 +33,54 @@ module.exports = {
                 loader: "ts-loader"
             },
 
+            // {
+            //     test: /\.css$/,
+            //     include: [
+            //         path.resolve(__dirname, "src")
+            //     ],
+            //     loaders: [
+            //         "style-loader",
+            //         "typings-for-css-modules-loader?modules&namedExport"
+            //     ]
+            // },
+
             {
-                test: /\.css$/,
+                test: /\.css$/i,
+                exclude: [/node_modules/],
                 include: [
-                    path.resolve(__dirname, "src")
+                    path.resolve(__dirname, "src")                    
                 ],
-                loaders: [
-                    "style-loader",
-                    "typings-for-css-modules-loader?modules&namedExport"
+                use: [
+                    {
+                        loader: 'style-loader'
+                    },
+                    {
+                        loader: 'typings-for-css-modules-loader',
+                        options: {
+                            sourceMap: true,
+                            importLoaders: 1,
+                            modules: true,
+                            camelCase: true,
+                            localIdentName: '[name]_[local]_[hash:base64:5]',
+                            minimize: false,
+                            namedExport: true
+                        },
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: () => ([
+                                require("postcss-import")(),
+                                // Following CSS Nesting Module Level 3: http://tabatkins.github.io/specs/css-nesting/
+                                require("postcss-nesting")(),
+                                require("postcss-custom-properties")(),
+                                //https://github.com/ai/browserslist
+                                require("autoprefixer")({
+                                    browsers: ['last 2 versions', 'ie >= 9']
+                                })
+                            ])
+                        }
+                    }
                 ]
             }
 
@@ -78,7 +118,10 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Hot Module Replacement'
-          }),
+        }),
+        new webpack.WatchIgnorePlugin([
+            /css\.d\.ts$/
+        ]),
         new webpack.HotModuleReplacementPlugin()
     ],
 }

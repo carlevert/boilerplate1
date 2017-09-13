@@ -1,0 +1,22 @@
+.component > div {
+   display: flex;
+   flex-direction: row;
+   line-height: 26px;
+   background-color: #555;
+   padding: 5px;
+
+
+}
+
+.component input {
+   line-height: 22px;
+   border: 2px solid #717171;
+   padding: 0 5px;
+   font-size: inherit;
+   margin-right: 5px;
+}
+
+.component input:hover, input:focus {
+   border: 2px solid #007AD5;
+   outline: none;
+}

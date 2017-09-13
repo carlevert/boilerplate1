@@ -1,0 +1,12 @@
+.button {
+   background-color: royalblue;
+   color: white;
+   font: menu;
+   border: none;
+   outline: none;
+}
+
+.disabled {
+   composes: button;
+   background-color: #ddd;
+}
